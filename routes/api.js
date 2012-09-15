@@ -1,17 +1,20 @@
 exports.photo = function(req, res) {
-        var serverPath = '/images/' + req.files.photo.name;
+/*        var serverPath = '/images' + req.files.photo.path;
 
         require('fs').rename(
           req.files.photo.path,
-          './public' + serverPath,
-          function(error) {
+          './public/photos' + serverPath,
+*/
+	  
+        function(error) {
                 if(error) {
                   res.send({
                         error: 'Welp. Something went wrong'
                   });
                   return;
                 }
-                res.redirect('/');
+                console.log(JSON.stringify(req.files.photo));
+		res.redirect('/');
         }
         );
 };
