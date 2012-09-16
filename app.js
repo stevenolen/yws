@@ -11,6 +11,7 @@ var express = require('express')
 // connect to mongo when we initialize.
 mongoose.connect('mongodb://localhost/yws');
 
+// app configure stuff.
 var app = express();
 
 app.configure(function(){
@@ -32,8 +33,9 @@ app.configure('development', function(){
 
 //API handlers and router and shiz
 var api = require('./controllers/api.js');
-app.get('/', routes.index);
-app.post('/photo', api.photo);
+app.get('/', routes.index); //should probably go away.
+app.post('/photo', api.photopost); //post API call (upload new photo)
+app.get('/photo', api.photoget); //get API call (grab photos) UNIMPLEMENTED
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
