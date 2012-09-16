@@ -1,6 +1,7 @@
 html
   body
    h1 holy crap pictures
-     form(id='uploadForm', enctype='multipart/form-data', method='post', action='/api/photo')
+     form(id='uploadForm', enctype='multipart/form-data', method='post', action='/photo')
+       input(name='wedid', id='wedid', type='text')
        input(name='photo', id='userPhotoInput', type='file')
        input(name='submit', type='submit', value='submit')
