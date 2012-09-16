@@ -3,12 +3,12 @@
  */
 
 var mongoose = require('mongoose')
-  ,Schema = mongoose.Schema
-  ,ObjectId = Schema.ObjectId;
+  ,Schema = mongoose.Schema;
 
 var photoSchema = new Schema({
-   'wedid'       : {type: String},
-   'path'	: {type: String}
+   'wedding'    : {type: String},
+   'path'	: {type: String},
+   'timestamp'	: {type: Date}
 });
 
 //Define model.

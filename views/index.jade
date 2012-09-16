@@ -1,7 +1,29 @@
-html
-  body
-   h1 holy crap pictures
-     form(id='uploadForm', enctype='multipart/form-data', method='post', action='/photo')
-       input(name='wedid', id='wedid', type='text')
-       input(name='photo', id='userPhotoInput', type='file')
-       input(name='submit', type='submit', value='submit')
+head
+  script(src='/javascripts/bootstrap.js')
+  link(rel='stylesheet', href='/stylesheets/bootstrap.css') 
+
+  div.container
+    div.navbar
+      a(href='#').brand #{title}
+      ul.nav
+        li.active 
+          a(href='#') Home
+        li  
+          a(href='#') About
+        li  
+          a(href='#') Contact
+
+div.container
+  div.content
+    div.row
+      div.span4
+        form(id='photoForm', class='well', enctype='multipart/form-data', method='post', action='/photo')
+          input(name='photo', id='userPhotoInput', type='file')
+          button(type='submit', class='btn btn-primary', value='photo')photo
+      div.span4    
+        form(id='weddingForm', class='well', enctype='multipart/form-data', method='post', action='/wedding')
+          input(name='weddingname', id='weddingInput', type='text')
+          button(type='submit', class='btn btn-primary, value='wedding')wedding
+
+  footer
+    p &copy; Steve Nolen 2011
