@@ -1,12 +1,16 @@
 var express = require('express');
 var hat = require('hat');
+var uuid = require('node-uuid');
 var Photo = require('../models/photo.js');
 var Wedding = require('../models/wedding.js');
 
 //takes a POST to /photo and creates a db doc with pointers
 exports.photopost = function(req, res) {
-//	var modified = moment(req.files.photo.lastModifiedDate);
-	new Photo({wedding: 123, path: req.files.photo.path, timestamp: req.files.photo.lastModifiedDate}).save();
+	var photoudid = uuid.v4();
+	var serverPath = 'photos/' + photoudid;
+	require('fs').rename(req.files.photo.path, './public/' + serverPath, function(err) {
+	  if(err) { console.log({ error: 'FILE NOT PLACED CORRECTLY' }); return; }});
+	new Photo({wedding: 123, path: serverPath, timestamp: req.files.photo.lastModifiedDate}).save();
 	res.redirect('/');
 };
 

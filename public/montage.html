@@ -8,19 +8,23 @@
     <meta name="author" content="">
 
     <!-- Custom styles (for now) -->
-    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
-    <script src="/javascripts/jquery-1.8.1.js"></script>
-    <script src="/javascripts/bootstrap.js"></script>
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/demo.css" rel="stylesheet">
+    <link href="/stylesheets/reset.css" rel="stylesheet">
+<!--    <link href="/stylesheets/bootstrap.css" rel="stylesheet"> -->
     <script src="/javascripts/jquery.montage.js"></script>
+    <script src="/javascripts/jquery-1.8.1.js"></script>
+<!--    <script src="/javascripts/bootstrap.js"></script> -->
     <script>$.get("/photo/123", function(json){
    
 	var tbl_body = "";
 
    $.each(json, function(index, value){
        console.log(this);
-       tbl_body += "<a href=#><img src='"+this.path+"' title='whatever'></img></a>";
+       tbl_body += "<img src='"+this.path+"' title='whatever' alt height='25%' width='25%'>";
        })
-   $('#am-container').html(tbl_body);
+   console.log(tbl_body);
+   $('#am-container').append(tbl_body);
 });
     </script>
 </head>

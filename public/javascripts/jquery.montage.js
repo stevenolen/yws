@@ -125,11 +125,11 @@
 		margin					: 1,	// space between images.
 		minw					: 70,	// the minimum width that a picture should have.
 		minh					: 20,	// the minimum height that a picture should have.
-		maxh					: 250,	// the maximum height that a picture should have.
-		alternateHeight			: false,// alternate the height value for every row. If true this has priority over defaults.fixedHeight.
+		maxh					: 30,	// the maximum height that a picture should have.
+		alternateHeight			: true,// alternate the height value for every row. If true this has priority over defaults.fixedHeight.
 		alternateHeightRange	: {		// the height will be a random value between min and max.
-			min	: 100,
-			max	: 300
+			min	: 90,
+			max	: 30
 		},
 		fixedHeight				: null,	// if the value is set this has priority over defaults.minsize. All images will have this height.
 		minsize					: false,// minw,minh are irrelevant. Chosen height is the minimum one available.
