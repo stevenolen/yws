@@ -1,10 +1,10 @@
 exports.photo = function(req, res) {
-/*        var serverPath = '/images' + req.files.photo.path;
+        var serverPath = '/images' + req.files.photo.path;
 
         require('fs').rename(
           req.files.photo.path,
           './public/photos' + serverPath,
-*/
+
 	  
         function(error) {
                 if(error) {
@@ -18,3 +18,17 @@ exports.photo = function(req, res) {
         }
         );
 };
+
+exports.wedding = function(req, res) {
+	var wedding = new WeddingModel();
+	wedding.wedid = 0001;
+	wedding.name = 'Nolen/Marchant';
+	wedding.save(function(err) {
+	  console.log('error check');
+	  if(err) { throw err; }
+	  console.log('saved');
+	  db.disconnect();
+}
+);
+};
+	

@@ -7,10 +7,32 @@ var express = require('express')
   , api = require('./routes/api')
   , http = require('http')
   , path = require('path')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , Schema = mongoose.Schema
+  , ObjectId = Schema.ObjectId;
+
+var db = mongoose.connect('mongodb://localhost/yws');
+
+//Schema Definitions
+var Wedding = new Schema({
+    uuid        : ObjectId
+  , wedid       : { type: Number, index: true }
+  , name        : String
+});
+
+var Photo = new Schema({
+    uuid        : ObjectId
+  , wedid       : Number
+  , path	: String
+  , timestamp   : Date
+});
+
+//Define model.
+var WeddingModel = db.model('Wedding', Wedding);
+var PhotoModel = db.model('Photo', Photo);
+
 
 var app = express();
-var db = mongoose.connect('mongodb://localhost/yws');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -28,25 +50,27 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-/*var Schema = mongoose.Schema
-  , ObjectId = Schema.ObjectId;
-
-var Wedding = new Schema({
-    uuid	: ObjectID
-  , wedid	: Number
-  , name	: String
-});
-
-var Photo = new Schema({
-    uuid	: ObjectId
-  , wedid	: Number
-  , timestamp	: Date
-});
-
-var PhotoModel = mongoose.model('Photo', 
-*/
 app.get('/', routes.index);
 app.post('/api/photo', api.photo);
+app.post('/api/wedding', function(req, res){
+        var wedding = new WeddingModel();
+        wedding.wedid = 0001;
+        wedding.name = 'Nolen/Marchant';
+        wedding.save(function(err) {
+          console.log('error check');
+          if(err) { throw err; }
+          console.log('saved');
+          db.disconnect();
+}
+);
+});
+app.get('/api/wedding', function(req, res){
+	WeddingModel.find().all(function(wedding) {
+	res.end(JSONstringify(wedding));
+	});
+
+});
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
