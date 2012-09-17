@@ -1,8 +1,43 @@
-<html>
-    <head>
-        <title>Index</title>
-    </head>
-    <body>
-        <h1>Hello Express!!</h1>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>YWS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+  <script src="/javascripts/bootstrap.js"></script>
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+<div class="hero-unit">
+<h1>YWS</h1>
+<p>Upload an image file here.  It will automatically be added to the display. Press the button below to view the display.</p>
+<p><a href="/montage" class="btn btn-primary">View</a></p>
+</div>
+    <div class="row-fluid">
+      <div class="span4">
+        <form id='photoForm', class='well', enctype='multipart/form-data', method='post', action='/photo'>
+           <legend>Photo Upload</legend>
+           <input name='photo', id='userPhotoInput', type='file'></input>
+           <button type='submit', class='btn btn-primary', value='photo'>Submit</button>
+        </form>
+      </div>
+     </div>
+     <div class="row-fluid">
+      <div class="span4">
+        <form id='weddingForm', class='well', enctype='multipart/form-data', method='post', action='/wedding'>
+           <legend>Don't Use</legend>
+           <input name='weddingname', id='weddingInput', type='text'></input>
+           <button type='submit', class='btn btn-primary', value='wedding'>Submit</input>
+        </form>
+      </div>
+    </div>
+</div>
+</body>
+<footer>
+<p> &copy; Steve Nolen 2011</p>
+</footer>
 </html>
