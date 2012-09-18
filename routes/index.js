@@ -8,6 +8,6 @@ exports.index = function(req, res){
 };
 
 exports.montage = function(req, res){
-  res.redirect('/montage.html');
+  res.redirect('/simply.html');
 };
 
