@@ -1,0 +1,7 @@
+#.gitignore for YWS project
+
+#don't bother uploading userdata dir
+/public/photos
+
+#don't upload my IMAP user config file
+email_config.json

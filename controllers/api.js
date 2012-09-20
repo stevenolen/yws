@@ -11,6 +11,7 @@ exports.photopost = function(req, res) {
 	require('fs').rename(req.files.photo.path, './public/' + serverPath, function(err) {
 	  if(err) { console.log({ error: 'FILE NOT PLACED CORRECTLY' }); return; }});
 	new Photo({wedding: 123, path: serverPath, timestamp: req.files.photo.lastModifiedDate}).save();
+	console.log("photo "+photoudid+" uploaded");
 	res.redirect('/');
 };
 

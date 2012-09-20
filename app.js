@@ -30,6 +30,11 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+//uncaughtException handler
+process.on('uncaughtException', function (err) {
+	console.log('Caught Exception: ' + err);
+});
+
 
 //API handlers and router and shiz
 var api = require('./controllers/api.js');
@@ -38,6 +43,14 @@ app.post('/photo', api.photopost); //post API call (upload new photo)
 app.get('/photo/:wedding', api.photoget); //get API call (grab photos) UNIMPLEMENTED
 app.post('/wedding', api.weddingpost);
 app.get('/montage', routes.montage);
+
+//Crazy Email Thing
+var email = require('./controllers/email.js');
+
+setInterval(function() {
+	console.log('polling IMAP server');
+	email.check();
+}, 30000);//set for 30s check for DEV ONLY. change to 60 or something a bit more lenient.
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
