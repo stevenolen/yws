@@ -46,12 +46,12 @@ app.get('/montage', routes.montage);
 
 //Crazy Email Thing
 var email = require('./controllers/email.js');
-
 setInterval(function() {
-	console.log('polling IMAP server');
 	email.check();
-}, 30000);//set for 30s check for DEV ONLY. change to 60 or something a bit more lenient.
+}, 120000);
 
+
+//SERVER LISTEN
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

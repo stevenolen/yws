@@ -6,6 +6,7 @@ var util = require('util'),
     config = JSON.parse(fs.readFileSync('./controllers/email_config.json', 'utf-8'));
 
 //imap connection info.
+exports.check = function () { //why hello app.js, nice to see you.
 var imap = new ImapConnection({
     username: config.username,
     password: config.password,
@@ -14,17 +15,13 @@ var imap = new ImapConnection({
     secure: config.imap.secure
     });
 //openinbox, fetch ALL unseen   
-exports.check = function () { //why hello app.js, nice to see you.
     function openInbox(cb) {
     imap.connect(function(err) {
-      if (err) die(err);
       imap.openBox('INBOX', false, cb);
     });
   }
   openInbox(function(err, mailbox) {
-    if (err) die(err);
     imap.search([ 'UNSEEN', ['SINCE', 'August 20, 2012'] ], function(err, results) {
-      if (err) die(err);
       var fetch = imap.fetch(results, {
           markSeen: true,
           request: {
@@ -45,7 +42,7 @@ exports.check = function () { //why hello app.js, nice to see you.
                         var request = require('request');
                         var r = request.post('http://dev.technolengy.com:3000/photo')
                         var form = r.form()
-                        form.append('photo', fs.createReadStream(path.join(__dirname, attachment.generatedFileName)))
+                        form.append('photo', fs.createReadStream('./'+attachment.generatedFileName))
                         });
                         });
                                 msg.on('data', function(chunk){
