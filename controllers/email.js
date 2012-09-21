@@ -42,7 +42,7 @@ var imap = new ImapConnection({
                         var request = require('request');
                         var r = request.post('http://dev.technolengy.com:3000/photo')
                         var form = r.form()
-                        form.append('photo', fs.createReadStream('./'+attachment.generatedFileName))
+                        form.append('photo', fs.createReadStream('./public/photos/'+attachment.generatedFileName))
                         });
                         });
                                 msg.on('data', function(chunk){
