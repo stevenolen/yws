@@ -8,17 +8,19 @@ var Wedding = require('../models/wedding.js');
 //takes a POST to /photo and creates a db doc with pointers
 exports.photopost = function(req,res) {
 	var photoudid = uuid.v4();
-        var basePath = './public/photos/';
-	var fullPath = basePath + 'orig/' + photoudid;
+        var randsizes = Array(200,225,250,275,300,325,350,375)
+	var basePath = './public/photos/';
+	var origPath = basePath + 'orig/' + photoudid;
 	var scalePath = basePath + 'scale/' + photoudid;
-        require('fs').rename(req.files.photo.path, fullPath, function(err) {
+        require('fs').rename(req.files.photo.path, origPath, function(err) {
           if(err) { console.log({ error: 'FILE NOT PLACED CORRECTLY' }); return; }});
-	gm(fullPath).resize(300).write(scalePath, function(err){
+	var randsize = randsizes[Math.floor(Math.random()*randsizes.length)];
+	gm(origPath).resize(randsize).write(scalePath, function(err){
 		if (err) console.log("Error: " + err);
 	
 });
 	new Photo({wedding: 123, udid: photoudid, timestamp: req.files.photo.lastModifiedDate}).save();
-        	console.log("photo "+photoudid+" uploaded");
+ 	      	console.log("photo "+photoudid+" uploaded"+randsize);
         	res.redirect('/');
 
 };

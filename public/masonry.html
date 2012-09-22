@@ -16,7 +16,7 @@
    
 	var tbl_body = "";
    $.each(json, function(index, value){
-       tbl_body += "<div class='item'><a data-toggle='modal' href='#myModal'><img src='photos/scale/"+this.udid+"' class='img-rounded' width='150'></a></div>";
+       tbl_body += "<div class='item'><a data-toggle='modal' href='#myModal'><img src='photos/scale/"+this.udid+"' class='img-rounded'></a></div>";
        })
    $('#container').append(tbl_body);
 });
@@ -26,7 +26,7 @@ $(function(){
 	$(window).load(function(){
          $('#container').masonry({
            itemSelector: '.item',
-           columnWidth: 20,
+	   gutterWidth: 10,
 	   isAnimated: true,
 	   animationOptions: {
 	    duration: 450,
