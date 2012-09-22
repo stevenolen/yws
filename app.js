@@ -14,7 +14,6 @@ mongoose.connect('mongodb://localhost/yws');
 // app configure stuff.
 var app = express();
 var server = app.listen(3000);
-//var io = require('./socket').listen(server);
 var io = require('socket.io').listen(server);
 
 
@@ -61,10 +60,3 @@ exports.socketsend = function (newphoto){
 	io.sockets.json.send(newphoto);
 };
 
-
-
-
-//socket.io starting...
-//setInterval(function() {
-//        io.sockets.send('picture goes here');
-//        }, 1000 );
