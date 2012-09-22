@@ -13,6 +13,10 @@ mongoose.connect('mongodb://localhost/yws');
 
 // app configure stuff.
 var app = express();
+var server = app.listen(3000);
+//var io = require('./socket').listen(server);
+var io = require('socket.io').listen(server);
+
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -40,10 +44,10 @@ process.on('uncaughtException', function (err) {
 var api = require('./controllers/api.js');
 app.get('/', routes.index); //should probably go away.
 app.post('/photo', api.photopost); //post API call (upload new photo)
-app.post('/photov2', api.photov2post); //post API call (upload new photo)
 app.get('/photo/:wedding', api.photoget); //get API call (grab photos) UNIMPLEMENTED
 app.post('/wedding', api.weddingpost);
 app.get('/montage', routes.montage);
+
 
 //Crazy Email Thing
 var email = require('./controllers/email.js');
@@ -52,7 +56,15 @@ setInterval(function() {
 }, 120000);
 
 
-//SERVER LISTEN
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+//Emits new photo to all connected sockets
+exports.socketsend = function (newphoto){
+	io.sockets.json.send(newphoto);
+};
+
+
+
+
+//socket.io starting...
+//setInterval(function() {
+//        io.sockets.send('picture goes here');
+//        }, 1000 );

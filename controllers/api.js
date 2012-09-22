@@ -7,28 +7,29 @@ var Wedding = require('../models/wedding.js');
 
 //takes a POST to /photo and creates a db doc with pointers
 exports.photopost = function(req,res) {
-	var photoudid = uuid.v4();
-        var randsizes = Array(200,225,250,275,300,325,350,375)
+	var photouuid = uuid.v4();
+//        var randsizes = Array(200,250,300)
 	var basePath = './public/photos/';
-	var origPath = basePath + 'orig/' + photoudid;
-	var scalePath = basePath + 'scale/' + photoudid;
+	var origPath = basePath + 'orig/' + photouuid;
+	var scalePath = basePath + 'scale/' + photouuid;
         require('fs').rename(req.files.photo.path, origPath, function(err) {
           if(err) { console.log({ error: 'FILE NOT PLACED CORRECTLY' }); return; }});
-	var randsize = randsizes[Math.floor(Math.random()*randsizes.length)];
-	gm(origPath).resize(randsize).write(scalePath, function(err){
+//	var randsize = randsizes[Math.floor(Math.random()*randsizes.length)];
+	gm(origPath).resize(200).write(scalePath, function(err){
 		if (err) console.log("Error: " + err);
 	
-});
-	new Photo({wedding: 123, udid: photoudid, timestamp: req.files.photo.lastModifiedDate}).save();
- 	      	console.log("photo "+photoudid+" uploaded"+randsize);
-        	res.redirect('/');
-
+		new Photo({wedding: 123, uuid: photouuid, timestamp: req.files.photo.lastModifiedDate}).save();
+ 	      		console.log("photo "+photouuid+" uploaded");
+			var app = require('../app.js');
+			app.socketsend({uuid: photouuid});
+			res.redirect('/');
+	});
 };
 
 
 //takes a GET to /photo/:wedding
 exports.photoget = function(req, res) {
-	Photo.find({'wedding':req.params.wedding},'udid timestamp', function(err, photo) {
+	Photo.find({'wedding':req.params.wedding},'uuid timestamp', function(err, photo) {
 	if (err) return handleError(err);
 	res.send(photo)
 })};

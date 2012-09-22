@@ -9,23 +9,41 @@
 
     <!-- Custom styles (for now) -->
     <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+<script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/jquery-1.8.1.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
     <script src="/javascripts/jquery.masonry.js"></script>
+
+   <!--script hardcodedely GETs to /photo/123 in order to pull down all images -->
     <script>$.get("/photo/123", function(json){
-   
 	var tbl_body = "";
    $.each(json, function(index, value){
-       tbl_body += "<div class='item'><a data-toggle='modal' href='#myModal'><img src='photos/scale/"+this.udid+"' class='img-rounded'></a></div>";
+       tbl_body += "<div class='item' style='position: absolute;'><a data-toggle='modal' href='#myModal?uuid="+this.uuid+"'><img src='photos/scale/"+this.uuid+"'></a></div>";
        })
-   $('#container').append(tbl_body);
+   $('#container').prepend(tbl_body);
 });
     </script>
-    <script>
+   <!--script initializes socket.io session and prepends masonry div when new photo is added -->
+<script>
+var socket = io.connect('http://dev.technolengy.com:3000');
+  socket.on('message', function (data) {
+	var newphoto = "<div class='item' style='position: absolute;'><a data-toggle='modal' href='#myModal?uuid="+data.udid+"'><img src='photos/scale/"+data.uuid+"'><div>"
+	$('#container').prepend(newphoto);
+	setTimeout (function() {
+		$('#container').masonry ('reload'); 
+	}, 300);
+  });
+</script>	
+    
+   <!-- script starts masonry and sets parameters -->
+<script>
 $(function(){
 	$(window).load(function(){
          $('#container').masonry({
            itemSelector: '.item',
+	   columnwidth: function( containerWidth ) {
+    return containerWidth / 5;
+  },
 	   gutterWidth: 10,
 	   isAnimated: true,
 	   animationOptions: {
@@ -35,20 +53,11 @@ $(function(){
 	   } 
 });
           });
-setInterval (function() { $('#container').masonry ('reload'); }, 300);
+setTimeout (function() { $('#container').masonry ('reload'); }, 300);
 });
      </script>
 </head>
 <body>
-<div id="container">
-</div>
-<div class="modal hide fade" id="myModal">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  </div>
-  <div class="modal-body">
-    <p>Large Picture Here</p>
-  </div>
-</div>
+<div id="container"></div>
 </body>
 </html>

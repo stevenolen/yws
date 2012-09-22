@@ -3,5 +3,8 @@
 #don't bother uploading userdata dir
 /public/photos
 
+#don't bother uploading node modules dir
+/node_modules
+
 #don't upload my IMAP user config file
 email_config.json

@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
 
 var photoSchema = new Schema({
    'wedding'    : {type: String},
-   'udid'	: {type: String},
+   'uuid'	: {type: String},
    'timestamp'	: {type: Date}
 });
 
