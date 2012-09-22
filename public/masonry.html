@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <!-- Custom styles (for now) -->
-    <!--<link href="/stylesheets/bootstrap.css" rel="stylesheet">-->
+    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
     <script src="/javascripts/jquery-1.8.1.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
     <script src="/javascripts/jquery.masonry.js"></script>
@@ -16,7 +16,7 @@
    
 	var tbl_body = "";
    $.each(json, function(index, value){
-       tbl_body += "<div class='item'><img src='"+this.path+"' class='img-rounded' width='147'></div>";
+       tbl_body += "<div class='item'><a data-toggle='modal' href='#myModal'><img src='photos/scale/"+this.udid+"' class='img-rounded' width='150'></a></div>";
        })
    $('#container').append(tbl_body);
 });
@@ -25,8 +25,14 @@
 $(function(){
 	$(window).load(function(){
          $('#container').masonry({
-           itemSelector : '.item',
-           columnWidth : 20 
+           itemSelector: '.item',
+           columnWidth: 20,
+	   isAnimated: true,
+	   animationOptions: {
+	    duration: 450,
+	    easing: 'linear',
+	    queue: false
+	   } 
 });
           });
 setInterval (function() { $('#container').masonry ('reload'); }, 300);
@@ -34,7 +40,15 @@ setInterval (function() { $('#container').masonry ('reload'); }, 300);
      </script>
 </head>
 <body>
-<div class="container fluid" id="container">
+<div id="container">
+</div>
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <p>Large Picture Here</p>
+  </div>
 </div>
 </body>
 </html>

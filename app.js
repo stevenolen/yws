@@ -40,6 +40,7 @@ process.on('uncaughtException', function (err) {
 var api = require('./controllers/api.js');
 app.get('/', routes.index); //should probably go away.
 app.post('/photo', api.photopost); //post API call (upload new photo)
+app.post('/photov2', api.photov2post); //post API call (upload new photo)
 app.get('/photo/:wedding', api.photoget); //get API call (grab photos) UNIMPLEMENTED
 app.post('/wedding', api.weddingpost);
 app.get('/montage', routes.montage);
