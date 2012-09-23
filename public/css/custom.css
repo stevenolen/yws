@@ -1,0 +1,17 @@
+body {
+  position: relative;
+  background-color: #fff;
+  background-image: url(../img/grid.png);
+  background-repeat: repeat;
+  background-position: 0 40px;
+}
+.box {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.brand {
+  background: url(../img/ywslogo.png) no-repeat left center;
+  height: 20px;
+  width: 100px;
+}
