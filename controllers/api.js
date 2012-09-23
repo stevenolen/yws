@@ -29,10 +29,15 @@ exports.photopost = function(req,res) {
 
 //takes a GET to /photo/:wedding
 exports.photoget = function(req, res) {
-	Photo.find({'wedding':req.params.wedding},'uuid timestamp', function(err, photo) {
+	Photo
+	.find({'wedding':req.params.wedding})
+	.sort({$natural:-1})
+	.select('uuid timestamp')
+	.exec(function(err, photo) {
 	if (err) return handleError(err);
 	res.send(photo)
-})};
+	});
+};
 
 //takes a POST to /wedding and instantiates a new wedding.
 exports.weddingpost = function(req, res) {

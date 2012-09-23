@@ -21,45 +21,52 @@ var imap = new ImapConnection({
     });
   }
   openInbox(function(err, mailbox) {
-    imap.search([ 'UNSEEN', ['SINCE', 'August 20, 2012'] ], function(err, results) {
-      var fetch = imap.fetch(results, {
-          markSeen: true,
-          request: {
-          body: "full",
-          headers: false
-        }
-      });
-//runs for each message
-      fetch.on('message', function(msg) {
-        var parser = new MailParser({ streamAttachments: true });
-//uses mailparser to parse through attachment stream, download to disk, read from disk to post.
-//this is really hacky.  reimplement.
-        parser.on('attachment', function(attachment) {
-                var output = fs.createWriteStream(attachment.generatedFileName);
+        imap.on('mail', function() {
+        console.log("NEW MESSSAGGGEEEEEE");
+  
+
+	imap.search([ 'UNSEEN', ['SINCE', 'August 20, 2012'] ], function(err, results) {
+     		      	      //**********************************
+			      var fetch = imap.fetch(results, {
+			          markSeen: true,
+			          request: {
+			          body: "full",
+ 			          headers: false
+			          }
+ 			      });
+     			      //**********************************
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	fetch.on('message', function(msg) {
+          var parser = new MailParser({ streamAttachments: true });
+          parser.on('attachment', function(attachment) {
+                var output = fs.createWriteStream('./public/photos/email/'+attachment.generatedFileName);
                         attachment.stream.pipe(output);
 
                         output.on('close', function () {
                         var request = require('request');
                         var r = request.post('http://dev.technolengy.com:3000/photo')
                         var form = r.form()
-                        form.append('photo', fs.createReadStream('./public/photos/'+attachment.generatedFileName))
+                        form.append('photo', fs.createReadStream('./public/photos/email/'+attachment.generatedFileName))
                         });
                         });
-                                msg.on('data', function(chunk){
-                                        parser.write(chunk.toString());
-                                });
+          msg.on('data', function(chunk){
+             parser.write(chunk.toString());
+          });
 
-                                msg.on('end', function(){
-                                        parser.end();
-                                });
+          msg.on('end', function(){
+             parser.end();
+          });
         });
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //GTFO of IMAP server so we can check again in like 30 seconds.
-      fetch.on('end', function() {
-        console.log('Done fetching all messages!');
-        imap.logout();
-      });
-    });
-  });
+      //fetch.on('end', function() {
+       // console.log('Done fetching all messages!');
+       // imap.logout();
+      //});
+    }); //end of imap.search
+   }); //end of imap.on('mail)
+  }); //end of openInbox function
 //end imap junk
 };

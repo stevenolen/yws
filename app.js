@@ -21,7 +21,7 @@ app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  app.use(express.favicon());
+  app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -32,6 +32,8 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+io.set('log level', 2);
 
 //uncaughtException handler
 process.on('uncaughtException', function (err) {
@@ -50,9 +52,7 @@ app.get('/montage', routes.montage);
 
 //Crazy Email Thing
 var email = require('./controllers/email.js');
-setInterval(function() {
 	email.check();
-}, 120000);
 
 
 //Emits new photo to all connected sockets

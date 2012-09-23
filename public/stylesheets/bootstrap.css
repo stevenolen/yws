@@ -5835,13 +5835,4 @@ button.close {
     overflow: visible !important;
   }
 }
-  .am-wrapper{
-        float:left;
-        position:relative;
-        overflow:hidden;
-}
-  .am-wrapper img{
-        position:absolute;
-        outline:none;
-}
 
