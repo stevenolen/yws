@@ -3,6 +3,7 @@
  */
 
 var express = require('express')
+//  , ejs = require('ejs')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
@@ -20,7 +21,8 @@ var io = require('socket.io').listen(server);
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'html');
+  app.engine('html', require('ejs').renderFile);
   app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -47,10 +49,10 @@ app.get('/', routes.index); //should probably go away.
 app.post('/photo', api.photopost); //post API call (upload new photo)
 app.get('/photo/:wedding', api.photoget); //get API call (grab photos) UNIMPLEMENTED
 app.post('/wedding', api.weddingpost);
-app.get('/montage', routes.montage);
+app.get('/display', routes.display);
 
 
-//Crazy Email Thing
+//Set up IMAP connection
 var email = require('./controllers/email.js');
 	email.check();
 

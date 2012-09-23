@@ -4,10 +4,10 @@
  */
 
 exports.index = function(req, res){
-  res.redirect('/index.html');
+  res.render('index.html');
 };
 
-exports.montage = function(req, res){
-  res.redirect('/simply.html');
+exports.display = function(req, res){
+  res.render('display.html');
 };
 
