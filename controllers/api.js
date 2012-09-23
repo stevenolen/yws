@@ -15,7 +15,7 @@ exports.photopost = function(req,res) {
         require('fs').rename(req.files.photo.path, origPath, function(err) {
           if(err) { console.log({ error: 'FILE NOT PLACED CORRECTLY' }); return; }});
 //	var randsize = randsizes[Math.floor(Math.random()*randsizes.length)];
-	gm(origPath).resize(200).write(scalePath, function(err){
+	gm(origPath).resize(600).write(scalePath, function(err){
 		if (err) console.log("Error: " + err);
 	
 		new Photo({wedding: 123, uuid: photouuid, timestamp: req.files.photo.lastModifiedDate}).save();

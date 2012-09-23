@@ -22,7 +22,7 @@ var imap = new ImapConnection({
   }
   openInbox(function(err, mailbox) {
         imap.on('mail', function() {
-        console.log("NEW MESSSAGGGEEEEEE");
+        console.log("A new message arrived via email, parsing it now");
   
 
 	imap.search([ 'UNSEEN', ['SINCE', 'August 20, 2012'] ], function(err, results) {
