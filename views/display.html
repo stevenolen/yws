@@ -18,6 +18,27 @@
     <link href="/css/lightbox.css" rel="stylesheet">
     <script src="/js/lightbox.js"></script>
 
+<script>
+$(function(){
+        $(window).load(function(){
+         $('#container').masonry({
+           itemSelector: '.box',
+           columnwidth: function( containerWidth ) {
+    return containerWidth / 10;
+  },
+           //gutterWidth: 10,
+           isAnimated: true,
+           animationOptions: {
+            duration: 750,
+            easing: 'linear',
+            queue: false
+           } 
+});
+          });
+setTimeout (function() { $('#container').masonry ('reload'); }, 300);
+});
+     </script>
+
    <!--script hardcodedely GETs to /photo/123 in order to pull down all images -->
     <script>$.get("/photo/123", function(json){
 	var tbl_body = "";
@@ -39,28 +60,8 @@ var socket = io.connect('http://dev.technolengy.com:3000');
   });
 </script>	
     
-   <!-- script starts masonry and sets parameters -->
-<script>
-$(function(){
-	$(window).load(function(){
-         $('#container').masonry({
-           itemSelector: '.box',
-	   columnwidth: function( containerWidth ) {
-    return containerWidth / 10;
-  },
-	   //gutterWidth: 10,
-	   isAnimated: true,
-	   animationOptions: {
-	    duration: 450,
-	    easing: 'linear',
-	    queue: false
-	   } 
-});
-          });
-setTimeout (function() { $('#container').masonry ('reload'); }, 300);
-});
-     </script>
-<script>/* enable this script to perform automatic fullscreen display functionality
+   <!-- script starts masonry and sets parameters
+/* enable this script to perform automatic fullscreen display functionality
 jQuery.fn.random = function() {
     var randomIndex = Math.floor(Math.random() * this.length);  
     return jQuery(this[randomIndex]);
@@ -71,8 +72,7 @@ $('a[rel="lightbox[album]"]').random().click()
 setTimeout(function(){
 $('a[class="lb-close"]').click()
 }, 10000);
-}, 30000); */
-</script>
+}, 30000); */ -->
 </head>
 
 
@@ -84,8 +84,7 @@ $('a[class="lb-close"]').click()
    <div class="container">
    <a class="brand" href="/"></a>
    <ul class="nav">
-     <li><a href="/masonry.html">View</a></li>
-     <li><a href="/upload.html">Upload</a></li>
+     <li><a href="/">Upload Now</a></li>
    </ul>
    </div>
   </div>

@@ -22,13 +22,14 @@ exports.photopost = function(req,res) {
  	      		console.log("photo "+photouuid+" uploaded");
 			var app = require('../app.js');
 			app.socketsend({uuid: photouuid});
-			res.redirect('/');
+			res.render('/display');
 	});
 };
 
 
 //takes a GET to /photo/:wedding
 exports.photoget = function(req, res) {
+	console.log('User-Agent: '+req.headers['user-agent']);
 	Photo
 	.find({'wedding':req.params.wedding})
 	.sort({$natural:-1})

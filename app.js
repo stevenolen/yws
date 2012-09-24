@@ -21,9 +21,11 @@ var io = require('socket.io').listen(server);
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'html');
+  app.set('view engine', 'jade');
+  //app.set('view engine', 'html');
+  //app.set('view cache', false);
   app.engine('html', require('ejs').renderFile);
-  app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
+  app.use(express.favicon(path.join(__dirname, 'public/img/favicon.ico')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -49,6 +51,7 @@ app.get('/', routes.index); //should probably go away.
 app.post('/photo', api.photopost); //post API call (upload new photo)
 app.get('/photo/:wedding', api.photoget); //get API call (grab photos) UNIMPLEMENTED
 app.post('/wedding', api.weddingpost);
+app.get('/view', routes.view);
 app.get('/display', routes.display);
 
 

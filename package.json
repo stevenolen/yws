@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "express": "*",
-    "jade": "*",
+    "ejs": "*",
     "mongoose": "*",
     "hat": "*",
     "node-uuid": "*",

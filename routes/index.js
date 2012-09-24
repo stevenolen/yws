@@ -11,3 +11,7 @@ exports.display = function(req, res){
   res.render('display.html');
 };
 
+exports.view = function(req, res){
+  res.render('view.html');
+};
+

@@ -6,34 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+  <script src="/js/jquery-1.8.1.js"></script>
   <script src="/js/bootstrap.js"></script>
   <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/custom.css" rel="stylesheet">
+<script>
+$(document).ready(function() {
+if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){
+	if (/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)) {
+	   $('#photoForm').hide();
+	   $('#uploadArea').prepend("<p>Unfortunately, Apple does not support uploads via Safari. Please follow the email instructions below.</p>");
+	};
+};
+});
+</script>
 </head>
 <body>
-<div class="container-fluid">
-<div class="hero-unit">
-<h1>YWS</h1>
-<p>Upload an image file here.  It will automatically be added to the display. Press the button below to view the display.</p>
-<p><a href="/masonry.html" class="btn btn-primary">View</a></p>
+<div class="navbar navbar-inverse navbar-static-top">
+  <div class="navbar-inner">
+   <div class="container">
+   <a class="brand" href="/"></a>
+   <ul class="nav">
+     <li><a href="/display">View</a></li>
+   </ul>
+   </div>
+  </div>
 </div>
-    <div class="row-fluid">
-      <div class="span4">
-        <form id='photoForm', class='well', enctype='multipart/form-data', method='post', action='/photo'>
+<br><br>
+<div class="container">
+
+<div class="row">
+<div class="hero-unit span4">
+<h3>Welcome to yws.io!</h3>
+<p>yws.io offers a streaming, real-time view of your wedding. Guests can upload photos below and then view the upload stream!</p>
+</div>
+
+      <div class="span3 well" id="uploadArea">
+        <form id='photoForm', enctype='multipart/form-data', method='post', action='/photo'>
            <legend>Photo Upload</legend>
            <input name='photo', id='userPhotoInput', type='file'></input>
            <button type='submit', class='btn btn-primary', value='photo'>Submit</button>
         </form>
+	<legend>Email Photo</legend>
+        <p>Please attach your photo in an email to:</p> 
+	<p><a href="mailto:photo@yws.io?subject=Marchant/Nolen Wedding" class="btn btn-primary">photo@yws.io</a></p>
       </div>
-     </div>
-     <div class="row-fluid">
-      <div class="span4">
-        <form id='weddingForm', class='well', enctype='multipart/form-data', method='post', action='/wedding'>
-           <legend>Don't Use</legend>
-           <input name='weddingname', id='weddingInput', type='text'></input>
-           <button type='submit', class='btn btn-primary', value='wedding'>Submit</input>
-        </form>
-      </div>
-    </div>
+</div>
+<!-- screwing around with jquery file upload -->
+<form id="fileupload" action="/photo" method="POST" enctype="multipart/form-data">
+<span class="btn btn-success fileinput-button">
+<span>Add photo</span>
+<input type="file" name="photo" multiple>
+</span>
+<button type="submit" class="btn btn-primary start">
+<span>Start Upload</span>
+<script src="js/jquery.ui.widget.js"></script>
+<script src="js/jquery.fileupload.js"></script>
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+</script>
+
+
+
+
+
 </div>
 </body>
 <footer>

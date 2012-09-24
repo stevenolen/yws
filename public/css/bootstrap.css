@@ -3387,7 +3387,7 @@ input[type="submit"].btn.btn-mini {
 }
 .navbar-static-top {
   position: static;
-  width: 100%;
+  width: auto; /* SN edit to test mobile width, was 100% */
   margin-bottom: 0;
 }
 .navbar-static-top .navbar-inner {
