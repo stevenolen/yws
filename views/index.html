@@ -8,8 +8,11 @@
     <meta name="author" content="">
   <script src="/js/jquery-1.8.1.js"></script>
   <script src="/js/bootstrap.js"></script>
+  <script src="/js/jquery.validate-1.8.1.min.js"></script>
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link href="/css/custom.css" rel="stylesheet">
+</script>
+
 <script>
 $(document).ready(function() {
 if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){
@@ -40,7 +43,6 @@ if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){
 <h3>Welcome to yws.io!</h3>
 <p>yws.io offers a streaming, real-time view of your wedding. Guests can upload photos below and then view the upload stream!</p>
 </div>
-
       <div class="span3 well" id="uploadArea">
         <form id='photoForm', enctype='multipart/form-data', method='post', action='/photo'>
            <legend>Photo Upload</legend>
@@ -52,33 +54,6 @@ if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){
 	<p><a href="mailto:photo@yws.io?subject=Marchant/Nolen Wedding" class="btn btn-primary">photo@yws.io</a></p>
       </div>
 </div>
-<!-- screwing around with jquery file upload -->
-<form id="fileupload" action="/photo" method="POST" enctype="multipart/form-data">
-<span class="btn btn-success fileinput-button">
-<span>Add photo</span>
-<input type="file" name="photo" multiple>
-</span>
-<button type="submit" class="btn btn-primary start">
-<span>Start Upload</span>
-<script src="js/jquery.ui.widget.js"></script>
-<script src="js/jquery.fileupload.js"></script>
-<script>
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
-});
-</script>
-
-
-
-
-
 </div>
 </body>
 <footer>
