@@ -22,7 +22,7 @@ exports.photopost = function(req,res) {
  	      		console.log("photo "+photouuid+" uploaded");
 			var app = require('../app.js');
 			app.socketsend({uuid: photouuid});
-			res.render('/display');
+			res.render('display.html');
 	});
 };
 
