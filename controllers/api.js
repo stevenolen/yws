@@ -1,6 +1,7 @@
 var express = require('express');
 var hat = require('hat');
 var uuid = require('node-uuid');
+var path = require('path');
 var gm = require('gm');
 var Photo = require('../models/photo.js');
 var Wedding = require('../models/wedding.js');
@@ -15,14 +16,18 @@ exports.photopost = function(req,res) {
         require('fs').rename(req.files.photo.path, origPath, function(err) {
           if(err) { console.log({ error: 'FILE NOT PLACED CORRECTLY' }); return; }});
 //	var randsize = randsizes[Math.floor(Math.random()*randsizes.length)];
+	//var path = require('path')
 	gm(origPath).resize(600).write(scalePath, function(err){
-		if (err) console.log("Error: " + err);
-	
+		if (!err) {
 		new Photo({wedding: 123, uuid: photouuid, timestamp: req.files.photo.lastModifiedDate}).save();
  	      		console.log("photo "+photouuid+" uploaded");
 			var app = require('../app.js');
 			app.socketsend({uuid: photouuid});
-			res.render('display.html');
+			res.json(200, { "result": "success" });
+		} else {
+		console.log("Error: Invalid image uploaded");
+		res.json(500, { "result": "failure" });
+		}
 	});
 };
 

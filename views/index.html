@@ -13,7 +13,7 @@
   <link href="/css/custom.css" rel="stylesheet">
 </script>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
 if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){
 	if (/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)) {
@@ -21,6 +21,14 @@ if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){
 	   $('#uploadArea').prepend("<p>Unfortunately, Apple does not support uploads via Safari. Please follow the email instructions below.</p>");
 	};
 };
+        $("#photoForm").ajaxForm(function() {
+		if (data.result == "success"){
+					window.location.href = 'dashboard.html'
+				}else{
+					alert("wrong user info")
+				};
+	});
+
 });
 </script>
 </head>
