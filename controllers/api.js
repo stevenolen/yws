@@ -31,6 +31,27 @@ exports.photopost = function(req,res) {
 	});
 };
 
+//take a DELETE to /photo/:uuid
+exports.photodel = function(req, res) {
+	console.log(req.body.auth);
+	var auth = req.body.auth;
+     if (auth == "passive1432") { 
+	Photo.find({ uuid: req.body.uuid }).remove( function(err){
+	  if (!err) {
+	    console.log("Photo Entry: "+req.body.uuid+" removed");
+	    res.json(200, { "result": "success" });
+	  } else {
+	    console.log("Error: DELETE photo failed");
+	    res.json(500, { "result": "failure" });
+	  }
+         });
+     } else {
+	console.log("Auth Failure");
+	res.json(500, { "result" : "failure", "message" : "authentication failure" });
+     }
+
+};
+
 
 //takes a GET to /photo/:wedding
 exports.photoget = function(req, res) {
